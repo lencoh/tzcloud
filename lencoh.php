@@ -1,4 +1,4 @@
- 	//语言
+ 	//语言，放到common控制器下面		
 		$language = I('param.language')?I('param.language'):'en';
 		
 		$this->assign('language',$language);
@@ -22,7 +22,7 @@
                  <volist name="translate_language" id="translate_language" >
               	  <option value="http://{$translate_language.intro}{$_SERVER['REQUEST_URI']}">{$translate_language.name}</option>
                 </volist>
-			</select>  
+	    </select>  
 
 
 
@@ -30,7 +30,7 @@
 	
 
 
-Config 路由
+Site/Config 路由
  return array(
             'APP_SUB_DOMAIN_DEPLOY'   =>    1, // 开启子域名配置
             'APP_SUB_DOMAIN_RULES'    =>    array(
@@ -54,3 +54,18 @@ Config 路由
 
 
 转换了之后  router不需要加路由
+//域名自动切换代码
+	/* 初始化 */
+    protected function _initialize(){
+	
+        $url = $_SERVER ['HTTP_HOST']; //得到当前访问的域名
+        $arr = explode('.',$url); //用 . 号截取url分割
+        if($arr[0] =='www'){
+           $url=str_replace('www','en',$url);
+           header('location:http://'. $url); 
+        }
+        
+        if($arr[2] == null){
+            $url='en.'.$url;
+           header('location:http://'.$url); 
+        }
