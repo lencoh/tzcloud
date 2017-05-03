@@ -69,3 +69,38 @@ Site/Config 路由
             $url='en.'.$url;
            header('location:http://'.$url); 
         }
+
+
+    //导航
+    $map['form_id'] = 0;
+    $map['type'] = get_cms_model_conf('CMS_CATEGORY');
+    $map['status'] = 1;
+    $onesmap  = $m_cms_content->where($map)->order('sort desc')->select();
+    //定义空数组
+    $this->assign('onesmap',$onesmap);
+
+<volist name="onesmap" id="onesmap">
+                        <switch name="onesmap.intro">
+                            <case value="p">
+                                <li class="m">
+                                    <a href="__APP__/<?php echo getTranslateLanguage('cms_content','url',$onesmap['id'],$language); ?>">
+                                        <?php echo getTranslateLanguage('cms_content','name',$onesmap['id'],$language); ?><span class="fa fa-caret-down"></span>
+                                    </a>
+
+                                    <div class="erji sub hidden-xs">
+                                        <ul>
+                                            <volist name='sslist' id='vol'>
+                                                <li><a href="__APP__/goods/{$vol.name_seo}"><?php echo getTranslateLanguage('mall_content','name',$vol['id'],$language); ?></a></li>
+                                            </volist>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </case>
+                            <default />
+                            <li>
+                                <a href="__APP__/<?php echo getTranslateLanguage('cms_content','url',$onesmap['id'],$language); ?>">
+                                    <?php echo getTranslateLanguage('cms_content','name',$onesmap['id'],$language); ?>
+                                </a>
+                            </li>
+                        </switch>
+                    </volist>
