@@ -15,8 +15,9 @@
 		$lang_map['fcid'] = 34;
 		$lang_map['status'] = 1;
 		$translate_language = $m_common_conf->where($lang_map)->select();
-		$this->assign('translate_language',$translate_language);		
-            
+		$this->assign('translate_language',$translate_language);	
+	
+             <link rel="stylesheet" href="/public/addon/mu/assets/plugins/flag-icon/css/flag-icon.css">
             <select  onchange="location.href=this.options[this.selectedIndex].value;">
                 <option value="">{$translate_page}</option>
                  <volist name="translate_language" id="translate_language" >
